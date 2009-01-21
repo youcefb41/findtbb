@@ -48,9 +48,13 @@ Furthermore, you need to set CMake variables `TBB_ARCHITECTURE` and `TBB_COMPILE
 `TBB_ARCHITECTURE` is one of ia32, em64t or itanium<br />
 `TBB_COMPILER` is sth. like vc9 or cc3.2.3_libc2.3.2_kernel2.4.21 or cc4.0.1_os10.4.9
 
-The script defines the following variables:
+The script defines the following CMake variables:
 
 || `TBB_FOUND` || Is TBB installed and found. ||
 || `TBB_INCLUDE_DIRS` || TBB library headers. ||
 || `TBB_LIBRARIES` || TBB libraries. ||
 || `TBB_DEBUG_LIBRARIES` || TBB libraries with debug symbols. ||
+
+= License =
+
+This script is released under the MIT license.
