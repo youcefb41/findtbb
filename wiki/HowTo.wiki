@@ -1,0 +1,56 @@
+#summary This is the one-page documentation of how to use FindTBB.cmake.
+#labels HowTo,Featured,FindTBB.cmake,Docs
+
+= Introduction =
+
+This web page contains information about an unofficial version of the FindTBB.cmake script I developed for my own TBB programs.
+
+For more information about CMake and TBB:
+
+  * http://www.cmake.org
+  * http://www.threadingbuildingblocks.org/
+
+The script eliminates the need to set visual studio build options manually.
+
+The script is used and tested on WinXP. If you use another OS (Vista, Linux, Mac, Sun), please give it a try and contact me for support.
+
+This webpage is updated infrequently- the svn log contains details about bug fixes and updates.
+
+Please send any comments or questions to my email or the issue tracker.
+
+Hannes Hofmann<br />
+Lehrstuhl für Mustererkennung (LME), University of Erlangen, Germany
+
+= Obtaining FindTBB.cmake =
+
+The code is available in an svn repository: http://findtbb.googlecode.com/svn/trunk
+
+Either checkout the example project:
+
+{{{
+svn co http://findtbb.googlecode.com/svn/trunk FindTBB
+}}}
+
+Or link the FindTBB.cmake and related files to an existing repository:
+
+{{{
+cd my_repository/CMake
+svn propset svn:externals "FindTBB http://findtbb.googlecode.com/svn/trunk/CMake/modules" .
+}}}
+
+= Usage =
+
+The script will search for your TBB installation using the environment variables which you should create after installing TBB.
+
+These are namely `TBB_INSTALL_DIR` and `TBB21_INSTALL_DIR` (overrides the former).
+
+Furthermore, you need to set CMake variables `TBB_ARCHITECTURE` and `TBB_COMPILER`. These variables define which version of the TBB library are used and correspond to the path of the lib directory you want to use.<br />
+`TBB_ARCHITECTURE` is one of ia32, em64t or itanium<br />
+`TBB_COMPILER` is sth. like vc9 or cc3.2.3_libc2.3.2_kernel2.4.21 or cc4.0.1_os10.4.9
+
+The script defines the following variables:
+
+|| `TBB_FOUND` || Is TBB installed and found. ||
+|| `TBB_INCLUDE_DIRS` || TBB library headers. ||
+|| `TBB_LIBRARIES` || TBB libraries. ||
+|| `TBB_DEBUG_LIBRARIES` || TBB libraries with debug symbols. ||
