@@ -1,4 +1,4 @@
-#summary This is the one-page documentation of how to use FindTBB.cmake.
+#summary A one-page documentation of how to use FindTBB.cmake.
 #labels HowTo,Featured,FindTBB.cmake,Docs
 
 = Introduction =
