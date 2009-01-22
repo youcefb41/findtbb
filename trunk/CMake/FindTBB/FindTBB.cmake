@@ -13,13 +13,11 @@
 
 # This module defines
 # TBB_INCLUDE_DIRS, where to find task_scheduler_init.h, etc.
+# TBB_LIBRARY_DIRS, where to find libtbb, libtbbmalloc
+# TBB_INSTALL_DIR, the base TBB install directory
 # TBB_LIBRARIES, the libraries to link against to use TBB.
 # TBB_DEBUG_LIBRARIES, the libraries to link against to use TBB with debug symbols.
 # TBB_FOUND, If false, don't try to use TBB.
-
-
-# todo: detect architecture automatically (_TBB_ARCHITECTURE)  [ ia32 | em64t | itanium ]
-# todo: detect VS version   automatically (_TBB_COMPILER)      [ vc7.1 | vc8 | vc9 | ... ]
 
 
 if (WIN32)
@@ -40,7 +38,7 @@ if (WIN32)
         set(_TBB_COMPILER "vc9")
     endif(MSVC90)
     if (NOT _TBB_COMPILER)
-        message(ERROR " TBB supports only VC 7.1, 8 and 9 compilers on Windows platforms.")
+        message("ERROR: TBB supports only VC 7.1, 8 and 9 compilers on Windows platforms.")
     endif (NOT _TBB_COMPILER)
     set(_TBB_ARCHITECTURE ${TBB_ARCHITECTURE})
 endif (WIN32)
@@ -91,13 +89,13 @@ if (TBB_INSTALL_DIR)
 endif (TBB_INSTALL_DIR)
 # second: use environment variable
 if (NOT _TBB_INSTALL_DIR)
-    if ($ENV{TBB_INSTALL_DIR})
+    if (NOT "$ENV{TBB_INSTALL_DIR}" STREQUAL "")
         set (_TBB_INSTALL_DIR $ENV{TBB_INSTALL_DIR})
-    endif ($ENV{TBB_INSTALL_DIR})
+    endif (NOT "$ENV{TBB_INSTALL_DIR}" STREQUAL "")
     # Intel recommends setting TBB21_INSTALL_DIR
-    if ($ENV{TBB21_INSTALL_DIR})
+    if (NOT "$ENV{TBB21_INSTALL_DIR}" STREQUAL "")
         set (_TBB_INSTALL_DIR $ENV{TBB21_INSTALL_DIR})
-    endif ($ENV{TBB21_INSTALL_DIR})
+    endif (NOT "$ENV{TBB21_INSTALL_DIR}" STREQUAL "")
 endif (NOT _TBB_INSTALL_DIR)
 # third: try to find path automatically
 if (NOT _TBB_INSTALL_DIR)
@@ -105,6 +103,15 @@ if (NOT _TBB_INSTALL_DIR)
         set (_TBB_INSTALL_DIR $ENV{_TBB_DEFAULT_INSTALL_DIR})
     endif (_TBB_DEFAULT_INSTALL_DIR)
 endif (NOT _TBB_INSTALL_DIR)
+# sanity check
+if (NOT _TBB_INSTALL_DIR)
+    message ("ERROR: TBB_INSTALL_DIR not found. ${_TBB_INSTALL_DIR}")
+else (NOT _TBB_INSTALL_DIR)
+# finally: set the cached CMake variable TBB_INSTALL_DIR
+if (NOT TBB_INSTALL_DIR)
+    set (TBB_INSTALL_DIR ${_TBB_INSTALL_DIR} CACHE PATH "Intel TBB install directory")
+    mark_as_advanced(TBB_INSTALL_DIR)
+endif (NOT TBB_INSTALL_DIR)
 
 
 #-- A macro to rewrite the paths of the library. This is necessary, because 
@@ -130,33 +137,21 @@ mark_as_advanced(TBB_INCLUDE_DIR)
 
 
 #-- Look for libraries
-set (_TBB_LIB_SEARCH_DIR ${_TBB_INSTALL_DIR}/${_TBB_ARCHITECTURE}/${_TBB_COMPILER}/lib)
+#set (_TBB_LIB_SEARCH_DIR ${_TBB_INSTALL_DIR}/${_TBB_ARCHITECTURE}/${_TBB_COMPILER}/lib)
+set (TBB_LIBRARY_DIR "${_TBB_INSTALL_DIR}/${_TBB_ARCHITECTURE}/${_TBB_COMPILER}/lib")
 
-find_library(TBB_LIBRARY
-    NAMES ${_TBB_LIB_NAME}
-    PATHS ${_TBB_LIB_SEARCH_DIR}
-)
-find_library(TBB_MALLOC_LIBRARY
-    NAMES ${_TBB_LIB_MALLOC_NAME}
-    PATHS ${_TBB_LIB_SEARCH_DIR}
-)
+find_library(TBB_LIBRARY        ${_TBB_LIB_NAME}        ${TBB_LIBRARY_DIR} NO_DEFAULT_PATH)
+find_library(TBB_MALLOC_LIBRARY ${_TBB_LIB_MALLOC_NAME} ${TBB_LIBRARY_DIR} NO_DEFAULT_PATH)
+#TBB_CORRECT_LIB_DIR(TBB_LIBRARY)
+#TBB_CORRECT_LIB_DIR(TBB_MALLOC_LIBRARY)
 mark_as_advanced(TBB_LIBRARY TBB_MALLOC_LIBRARY)
 
 #-- Look for debug libraries
-find_library(TBB_LIBRARY_DEBUG
-    NAMES ${_TBB_LIB_DEBUG_NAME}
-    PATHS ${_TBB_LIB_SEARCH_DIR}
-)
-find_library(TBB_MALLOC_LIBRARY_DEBUG
-    NAMES ${_TBB_LIB_MALLOC_DEBUG_NAME}
-    PATHS ${_TBB_LIB_SEARCH_DIR}
-)
-TBB_CORRECT_LIB_DIR(TBB_LIBRARY)
-TBB_CORRECT_LIB_DIR(TBB_MALLOC_LIBRARY)
-TBB_CORRECT_LIB_DIR(TBB_LIBRARY_DEBUG)
-TBB_CORRECT_LIB_DIR(TBB_MALLOC_LIBRARY_DEBUG)
+find_library(TBB_LIBRARY_DEBUG        ${_TBB_LIB_DEBUG_NAME}        ${TBB_LIBRARY_DIR} NO_DEFAULT_PATH)
+find_library(TBB_MALLOC_LIBRARY_DEBUG ${_TBB_LIB_MALLOC_DEBUG_NAME} ${TBB_LIBRARY_DIR} NO_DEFAULT_PATH)
+#TBB_CORRECT_LIB_DIR(TBB_LIBRARY_DEBUG)
+#TBB_CORRECT_LIB_DIR(TBB_MALLOC_LIBRARY_DEBUG)
 mark_as_advanced(TBB_LIBRARY_DEBUG TBB_MALLOC_LIBRARY_DEBUG)
-
 
 
 if (TBB_INCLUDE_DIR)
@@ -164,21 +159,20 @@ if (TBB_INCLUDE_DIR)
         set (TBB_FOUND "YES")
         set (TBB_LIBRARIES ${TBB_LIBRARY} ${TBB_MALLOC_LIBRARY} ${TBB_LIBRARIES})
         set (TBB_DEBUG_LIBRARIES ${TBB_LIBRARY_DEBUG} ${TBB_MALLOC_LIBRARY_DEBUG} ${TBB_DEBUG_LIBRARIES})
-        set (TBB_INCLUDE_DIRS ${TBB_INCLUDE_DIR})
+        set (TBB_INCLUDE_DIRS ${TBB_INCLUDE_DIR} CACHE PATH "TBB include directory" FORCE)
+        set (TBB_LIBRARY_DIRS ${TBB_LIBRARY_DIR} CACHE PATH "TBB library directory" FORCE)
+        mark_as_advanced(TBB_INCLUDE_DIRS TBB_LIBRARY_DIRS TBB_LIBRARIES TBB_DEBUG_LIBRARIES)
         message(STATUS "Found Intel TBB")
-        #message(STATUS "TBB_INCLUDE_DIRS: ${TBB_INCLUDE_DIRS}")
-        #message(STATUS "TBB_LIBRARIES: ${TBB_LIBRARIES}")
-        #message(STATUS "TBB_DEBUG_LIBRARIES: ${TBB_DEBUG_LIBRARIES}")
      endif (TBB_LIBRARY)
 endif (TBB_INCLUDE_DIR)
 
 if (NOT TBB_FOUND)
-    message(STATUS "Error: Intel TBB NOT found!")
+    message("ERROR: Intel TBB NOT found!")
     message(STATUS "Looked for Threading Building Blocks in ${_TBB_INSTALL_DIR}")
-    #message(STATUS "Looked for TBB libraries named ${TBB_SEARCH_LIBRARY}")
     # do only throw fatal, if this pkg is REQUIRED
     if (TBB_FIND_REQUIRED)
         message(FATAL_ERROR "Could NOT find TBB library.")
     endif (TBB_FIND_REQUIRED)
 endif (NOT TBB_FOUND)
 
+endif (NOT _TBB_INSTALL_DIR)
