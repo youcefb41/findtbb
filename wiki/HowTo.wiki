@@ -16,10 +16,10 @@ The script is used and tested on WinXP. If you use another OS (Vista, Linux, Mac
 
 This webpage is updated infrequently- the svn log contains details about bug fixes and updates.
 
-Please send any comments or questions to my email or the issue tracker.
+Please send any comments or questions to my email or the [http://code.google.com/p/findtbb/issues/list issue tracker].
 
-Hannes Hofmann<br />
-Lehrstuhl für Mustererkennung (LME), University of Erlangen, Germany
+[http://www5.informatik.uni-erlangen.de/our-team/hofmann-hannes/ Hannes Hofmann]<br />
+[http://www5.informatik.uni-erlangen.de/ Lehrstuhl für Mustererkennung (LME)], University of Erlangen, Germany
 
 == Obtaining FindTBB.cmake ==
 
@@ -124,6 +124,11 @@ Below is an example of the commands needed to build the example project on Windo
 == License ==
 
 This script is released under the MIT license.
+
+
+== Contact ==
+
+I don't like to publish my email address here, but you can find it (and further contact information) on my [http://www5.informatik.uni-erlangen.de/our-team/hofmann-hannes/ website]. You can also use the [http://code.google.com/p/findtbb/issues/list issue tracker].
 
 
 == Thanks ==
