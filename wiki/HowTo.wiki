@@ -105,7 +105,7 @@ and then remove (or comment out) the find_package call:
 #find_package(TBB)
 }}}
 
-This was sufficient for my project. Hopefully it works for you, too. Comments and improvements to make FindTBB work more smoothly on Linux are appreciated.
+This was sufficient for my project. Hopefully it works for you, too. [#Contact Comments and suggestions] to make FindTBB work more smoothly on Linux are appreciated.
 
 
 == Building the Example Project ==
