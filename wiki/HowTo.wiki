@@ -82,6 +82,32 @@ add_executable(FindTBB_example ${FindTBB_example_SRCS_CPP})
 endif(NOT TBB_FOUND)
 }}}
 
+
+=== Linux ===
+
+FindTBB.cmake was developed under Windows and does not work perfectly under Linux yet. This is how I made it work, when I needed it but had no time to automate the detection of the environment.
+
+At the beginning of your `CMakeLists.txt` write:
+{{{
+# Install directory of TBB. (w/o trailing slash)
+set(TBB_INSTALL_DIR "~/tbb21_014oss")
+set(TBB_ARCHITECTURE "build")
+set(TBB_COMPILER "linux_em64t_gcc_cc4.3.3_libc2.4_kernel2.6.16.54_release")
+
+set(TBB_INCLUDE_DIRS "${TBB_INSTALL_DIR}/include")
+set(TBB_LIBRARY_DIRS "${TBB_INSTALL_DIR}/${TBB_ARCHITECTURE}/${TBB_COMPILER}")
+set(TBB_LIBRARIES "tbb")
+set(TBB_FOUND 1) # not really, but hey it works!
+}}}
+
+and then remove (or comment out) the find_package call:
+{{{
+#find_package(TBB)
+}}}
+
+This was sufficient for my project. Hopefully it works for you, too. Comments and improvements to make FindTBB work more smoothly on Linux are appreciated.
+
+
 == Building the Example Project ==
 
 Below is an example of the commands needed to build the example project on Windows. On linux the process is roughly the same except that command line tools have to be used.
@@ -94,9 +120,11 @@ Below is an example of the commands needed to build the example project on Windo
   # Press 'Generate'
   # Go to D:\FindTBB-test\build\ and open FindTBB_pkg.sln
 
+
 == License ==
 
 This script is released under the MIT license.
+
 
 == Thanks ==
 ... to [http://www.sci.utah.edu/~abe/ Abe Stephens] for his [http://www.sci.utah.edu/~abe/FindCuda.html FindCuda] homepage which I took a lot of inspiration from.
