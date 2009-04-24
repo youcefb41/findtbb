@@ -1,8 +1,14 @@
 # Locate Intel Threading Building Blocks include paths and libraries
 # TBB can be found at http://www.threadingbuildingblocks.org/ 
 # Written by Hannes Hofmann, hannes.hofmann _at_ informatik.uni-erlangen.de
+# Adapted by Gino van den Bergen gino _at_ dtecta.com
 
-# This module requires
+# GvdB: This module uses the environment variable TBB_ARCH_PLATFORM which defines architecture and compiler.
+#   e.g. "ia32/vc8" or "em64t/cc4.1.0_libc2.4_kernel2.6.16.21"
+#   TBB_ARCH_PLATFORM is set by the build script tbbvars[.bat|.sh|.csh], which can be found
+#   in the TBB installation directory (TBB_INSTALL_DIR).
+#
+# For backwards compatibility, you may explicitely set the CMake variables TBB_ARCHITECTURE and TBB_COMPILER.
 # TBB_ARCHITECTURE     [ ia32 | em64t | itanium ]
 #   which architecture to use
 # TBB_COMPILER         e.g. vc9 or cc3.2.3_libc2.3.2_kernel2.4.21 or cc4.0.1_os10.4.9
@@ -82,7 +88,7 @@ endif (CMAKE_SYSTEM MATCHES "SunOS.*")
 set (TBB_FOUND "NO")
 
 
-#-- Find TBB install dir
+#-- Find TBB install dir and set ${_TBB_INSTALL_DIR} and cached ${TBB_INSTALL_DIR}
 # first: use CMake variable TBB_INSTALL_DIR
 if (TBB_INSTALL_DIR)
     set (_TBB_INSTALL_DIR ${TBB_INSTALL_DIR})
@@ -127,8 +133,8 @@ macro(TBB_CORRECT_LIB_DIR var_name)
 endmacro(TBB_CORRECT_LIB_DIR var_content)
 
 
-#-- Look for include directory
-set (TBB_INC_SEARCH_DIR ${_TBB_INSTALL_DIR})
+#-- Look for include directory and set ${TBB_INCLUDE_DIR}
+set (TBB_INC_SEARCH_DIR ${_TBB_INSTALL_DIR}/include)
 find_path(TBB_INCLUDE_DIR
     tbb/task_scheduler_init.h
     PATHS ${TBB_INC_SEARCH_DIR}
@@ -137,8 +143,15 @@ mark_as_advanced(TBB_INCLUDE_DIR)
 
 
 #-- Look for libraries
-#set (_TBB_LIB_SEARCH_DIR ${_TBB_INSTALL_DIR}/${_TBB_ARCHITECTURE}/${_TBB_COMPILER}/lib)
-set (TBB_LIBRARY_DIR "${_TBB_INSTALL_DIR}/${_TBB_ARCHITECTURE}/${_TBB_COMPILER}/lib")
+# GvdB: $ENV{TBB_ARCH_PLATFORM} is set by the build script tbbvars[.bat|.sh|.csh]
+if (NOT $ENV{TBB_ARCH_PLATFORM} STREQUAL "")
+    set (TBB_LIBRARY_DIR "${_TBB_INSTALL_DIR}/$ENV{TBB_ARCH_PLATFORM}/lib")
+else (NOT $ENV{TBB_ARCH_PLATFORM} STREQUAL "")
+    # HH: deprecated
+    message(STATUS "[Warning] FindTBB.cmake: The use of TBB_ARCHITECTURE and TBB_COMPILER is deprecated and may not be supported in future versions. Please set $ENV{TBB_ARCH_PLATFORM} (using tbbvars.[bat|csh|sh]).")
+    set (TBB_LIBRARY_DIR "${_TBB_INSTALL_DIR}/${_TBB_ARCHITECTURE}/${_TBB_COMPILER}/lib")
+endif (NOT $ENV{TBB_ARCH_PLATFORM} STREQUAL "")
+
 
 find_library(TBB_LIBRARY        ${_TBB_LIB_NAME}        ${TBB_LIBRARY_DIR} NO_DEFAULT_PATH)
 find_library(TBB_MALLOC_LIBRARY ${_TBB_LIB_MALLOC_NAME} ${TBB_LIBRARY_DIR} NO_DEFAULT_PATH)
@@ -155,7 +168,7 @@ mark_as_advanced(TBB_LIBRARY_DEBUG TBB_MALLOC_LIBRARY_DEBUG)
 
 
 if (TBB_INCLUDE_DIR)
-     if (TBB_LIBRARY)
+    if (TBB_LIBRARY)
         set (TBB_FOUND "YES")
         set (TBB_LIBRARIES ${TBB_LIBRARY} ${TBB_MALLOC_LIBRARY} ${TBB_LIBRARIES})
         set (TBB_DEBUG_LIBRARIES ${TBB_LIBRARY_DEBUG} ${TBB_MALLOC_LIBRARY_DEBUG} ${TBB_DEBUG_LIBRARIES})
@@ -163,7 +176,7 @@ if (TBB_INCLUDE_DIR)
         set (TBB_LIBRARY_DIRS ${TBB_LIBRARY_DIR} CACHE PATH "TBB library directory" FORCE)
         mark_as_advanced(TBB_INCLUDE_DIRS TBB_LIBRARY_DIRS TBB_LIBRARIES TBB_DEBUG_LIBRARIES)
         message(STATUS "Found Intel TBB")
-     endif (TBB_LIBRARY)
+    endif (TBB_LIBRARY)
 endif (TBB_INCLUDE_DIR)
 
 if (NOT TBB_FOUND)
