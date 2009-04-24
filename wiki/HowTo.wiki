@@ -1,6 +1,7 @@
 #summary A one-page documentation of how to use FindTBB.cmake.
 #labels HowTo,Featured,FindTBB.cmake,Docs
 
+
 == Introduction ==
 
 This web page contains information about an unofficial version of the FindTBB.cmake script I developed for my own TBB programs.
@@ -14,12 +15,13 @@ The script eliminates the need to set visual studio build options manually.
 
 The script is used and tested on WinXP. If you use another OS (Vista, Linux, Mac, Sun), please give it a try and contact me for support.
 
-This webpage is updated infrequently- the svn log contains details about bug fixes and updates.
+This webpage is updated infrequently - the svn log contains details about bug fixes and updates.
 
 Please send any comments or questions to my email or the [http://code.google.com/p/findtbb/issues/list issue tracker].
 
 [http://www5.informatik.uni-erlangen.de/our-team/hofmann-hannes/ Hannes Hofmann]<br />
 [http://www5.informatik.uni-erlangen.de/ Lehrstuhl für Mustererkennung (LME)], University of Erlangen, Germany
+
 
 == Obtaining FindTBB.cmake ==
 
@@ -38,13 +40,12 @@ cd my_repository/CMake
 svn propset svn:externals "FindTBB http://findtbb.googlecode.com/svn/trunk/CMake/modules" .
 }}}
 
+
 == Usage ==
 
-The script will search for your TBB installation using the environment variable `TBB21_INSTALL_DIR` (or `TBB_INSTALL_DIR` as fallback) which you should create after installing TBB.
+After installing TBB add the install path in the corresponding tbbvars[.bat|.csh|.sh] and execute this script in your OS startup. FindTBB will use the environment variables `TBB21_INSTALL_DIR` (or `TBB_INSTALL_DIR` as fallback) and `TBB_ARCH_PLATFORM` to find the include and lib directories.
 
-Furthermore, you need to set CMake variables `TBB_ARCHITECTURE` and `TBB_COMPILER`. These variables define which version of the TBB library are used and correspond to the path of the lib directory you want to use.<br />
-`TBB_ARCHITECTURE` is one of ia32, em64t or itanium<br />
-`TBB_COMPILER` is sth. like vc9 or cc3.2.3_libc2.3.2_kernel2.4.21 or cc4.0.1_os10.4.9
+For backwards compatibility, the CMake variables `TBB_ARCHITECTURE` and `TBB_COMPILER` are supported as well. This may change in a future release.
 
 The script defines the following CMake variables:
 
@@ -57,11 +58,6 @@ The script defines the following CMake variables:
 The following examples show how to include the script in your `CMakeLists.txt` file.
 
 {{{
-# define TBB_INSTALL_DIR, TBB_ARCHITECTURE and TBB_COMPILER
-# TBB_INSTALL_DIR is set using $ENV{TBB21_INSTALL_DIR}
-# TBB_COMPILER is detected automatically on Windows
-set(TBB_ARCHITECTURE "ia32")
-
 # Add FindTBB directory to CMake's module path
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/../CMake/FindTBB/")
 
@@ -85,27 +81,9 @@ endif(NOT TBB_FOUND)
 
 === Linux ===
 
-FindTBB.cmake was developed under Windows and does not work perfectly under Linux yet. This is how I made it work, when I needed it but had no time to automate the detection of the environment.
+FindTBB.cmake was developed under Windows but should work under Linux as well.
 
-At the beginning of your `CMakeLists.txt` write:
-{{{
-# Install directory of TBB. (w/o trailing slash)
-set(TBB_INSTALL_DIR "~/tbb21_014oss")
-set(TBB_ARCHITECTURE "build")
-set(TBB_COMPILER "linux_em64t_gcc_cc4.3.3_libc2.4_kernel2.6.16.54_release")
-
-set(TBB_INCLUDE_DIRS "${TBB_INSTALL_DIR}/include")
-set(TBB_LIBRARY_DIRS "${TBB_INSTALL_DIR}/${TBB_ARCHITECTURE}/${TBB_COMPILER}")
-set(TBB_LIBRARIES "tbb")
-set(TBB_FOUND 1) # not really, but hey it works!
-}}}
-
-and then remove (or comment out) the find_package call:
-{{{
-#find_package(TBB)
-}}}
-
-This was sufficient for my project. Hopefully it works for you, too. [#Contact Comments and suggestions] to make FindTBB work more smoothly on Linux are appreciated.
+If it does not work for you, [#Contact Comments and suggestions] to make FindTBB work more smoothly on Linux are appreciated.
 
 
 == Building the Example Project ==
@@ -132,4 +110,6 @@ I don't like to publish my email address here, but you can find it (and further 
 
 
 == Thanks ==
-... to [http://www.sci.utah.edu/~abe/ Abe Stephens] for his [http://www.sci.utah.edu/~abe/FindCuda.html FindCuda] homepage which I took a lot of inspiration from.
+
+... to Gino van den Bergen for the `TBB_ARCH_PLATFORM` patch<br />
+... to [http://www.sci.utah.edu/~abe/ Abe Stephens] for his [http://www.sci.utah.edu/~abe/FindCuda.html FindCuda] homepage which was very inspiring.
