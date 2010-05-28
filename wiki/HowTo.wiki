@@ -43,7 +43,7 @@ svn propset svn:externals "FindTBB http://findtbb.googlecode.com/svn/trunk/CMake
 
 == Usage ==
 
-After installing TBB add the install path in the corresponding tbbvars[.bat|.csh|.sh] and execute this script in your OS startup. FindTBB will use the environment variables `TBB21_INSTALL_DIR` (or `TBB_INSTALL_DIR` as fallback) and `TBB_ARCH_PLATFORM` to find the include and lib directories.
+After installing TBB add the install path in the corresponding tbbvars[.bat|.csh|.sh] and execute this script in your OS startup. FindTBB will use the environment variables `TBB30_INSTALL_DIR` (or `TBB22_INSTALL_DIR` for TBB 2.2, or `TBB21_INSTALL_DIR` for 2.1, or `TBB_INSTALL_DIR` as fallback) and `TBB_ARCH_PLATFORM` to find the include and lib directories.
 
 For backwards compatibility, the CMake variables `TBB_ARCHITECTURE` and `TBB_COMPILER` are supported as well. This may change in a future release.
 
