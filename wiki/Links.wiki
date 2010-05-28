@@ -1,0 +1,18 @@
+#summary Links to other software projects
+
+Other (maybe) noteworthy software
+
+Threading Building Blocks
+http://www.threadingbuildingblocks.org/
+
+CMake - Cross Platform Make
+http://www.cmake.org/
+
+Java Parallel Optimization Package
+http://www5.informatik.uni-erlangen.de/research/software/java-parallel-optimization-package/
+
+RabbitCT
+http://www.rabbtict.com/
+
+UnivIS2Typo3
+http://code.google.com/p/univis2typo3/
