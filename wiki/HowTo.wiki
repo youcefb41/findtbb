@@ -111,5 +111,6 @@ I don't like to publish my email address here, but you can find it (and further 
 
 == Thanks ==
 
+... to Florian Uhlig, for the TBB 2.2 and 3.0 patch<br />
 ... to Gino van den Bergen for the `TBB_ARCH_PLATFORM` patch<br />
 ... to [http://www.sci.utah.edu/~abe/ Abe Stephens] for his [http://www.sci.utah.edu/~abe/FindCuda.html FindCuda] homepage which was very inspiring.
