@@ -1,0 +1,13 @@
+#summary ChangeLog
+#labels Featured
+
+= Introduction =
+FindTBB does not have releases, but instead can be obtained directly from SVN.
+Consequently, instead of version numbers, revision numbers are referenced here.
+
+= Changes =
+r17: Added support for TBB 3.0 (thanks to Florian Uhlig)
+
+r15: Added support for the environment variable TBB_ARCH_PLATFORM
+
+r2: Initial version
