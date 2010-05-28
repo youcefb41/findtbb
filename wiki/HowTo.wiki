@@ -20,7 +20,7 @@ This webpage is updated infrequently - the svn log contains details about bug fi
 Please send any comments or questions to my email or the [http://code.google.com/p/findtbb/issues/list issue tracker].
 
 [http://www5.informatik.uni-erlangen.de/our-team/hofmann-hannes/ Hannes Hofmann]<br />
-[http://www5.informatik.uni-erlangen.de/ Lehrstuhl für Mustererkennung (LME)], University of Erlangen, Germany
+[http://www5.informatik.uni-erlangen.de/ Pattern Recognition Lab (Lehrstuhl fuer Muestererkennung, LME)], University of Erlangen-Nürnberg, Germany
 
 
 == Obtaining FindTBB.cmake ==
