@@ -1,6 +1,6 @@
 #summary Links to other software projects
 
-Other (maybe) noteworthy software
+Other noteworthy software:
 
 Threading Building Blocks
 http://www.threadingbuildingblocks.org/
@@ -14,5 +14,5 @@ http://www5.informatik.uni-erlangen.de/research/software/java-parallel-optimizat
 RabbitCT
 http://www.rabbtict.com/
 
-UnivIS2Typo3
+univis2typo3
 http://code.google.com/p/univis2typo3/
