@@ -1,5 +1,4 @@
-#summary One-sentence summary of this page.
+#summary Contributing to FindTBB.cmake is that simple!
 #labels Featured,Contributing
 
-===Contributing===
 Please use the [http://code.google.com/p/findtbb/issues/entry issue tracker] to file bug reports. If you have any suggestions [http://www5.informatik.uni-erlangen.de/our-team/hofmann-hannes/ send me an email].
