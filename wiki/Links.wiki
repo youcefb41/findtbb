@@ -2,20 +2,14 @@
 
 Other noteworthy software:
 
-Threading Building Blocks
-http://www.threadingbuildingblocks.org/
+[http://threadingbuildingblocks.org/ Threading Building Blocks]
 
-CMake - Cross Platform Make
-http://www.cmake.org/
+[http://code.google.com/p/likwid/ likwid] - Lightweight performance tools
 
-Java Parallel Optimization Package
-http://www5.informatik.uni-erlangen.de/research/software/java-parallel-optimization-package/
+[http://www.cmake.org/ CMake] - Cross Platform Make
 
-RabbitCT
-http://www.rabbtict.com/
+[http://www.rabbtict.com/ RabbitCT] - An open source performance benchmark for C-arm CT reconstruction.
 
-likwid
-http://code.google.com/p/likwid/
+[http://www5.informatik.uni-erlangen.de/research/software/java-parallel-optimization-package/ JPOP] - Java Parallel Optimization Package
 
-univis2typo3
-http://code.google.com/p/univis2typo3/
+[http://code.google.com/p/univis2typo3/ univis2typo3]
