@@ -1,6 +1,4 @@
-#summary Links to other software projects
-
-Other noteworthy software:
+#summary Links to other noteworthy software projects
 
 [http://threadingbuildingblocks.org/ Threading Building Blocks]
 
