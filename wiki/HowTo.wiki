@@ -1,5 +1,5 @@
 #summary A one-page documentation of how to use FindTBB.cmake.
-#labels HowTo,Featured,FindTBB.cmake,Docs
+#labels HowTo,Featured,FindTBB.cmake,Docs,GettingStarted
 
 
 == Introduction ==
@@ -9,7 +9,7 @@ This web page contains information about an unofficial version of the FindTBB.cm
 For more information about CMake and TBB:
 
   * http://www.cmake.org
-  * http://www.threadingbuildingblocks.org/
+  * http://threadingbuildingblocks.org/
 
 The script eliminates the need to set visual studio build options manually.
 
@@ -19,7 +19,7 @@ This webpage is updated infrequently - the svn log contains details about bug fi
 
 Please send any comments or questions to my email or the [http://code.google.com/p/findtbb/issues/list issue tracker].
 
-[http://www5.informatik.uni-erlangen.de/our-team/hofmann-hannes/ Hannes Hofmann]<br />
+[http://www5.informatik.uni-erlangen.de/our-team/hofmann-hannes/ Hannes Hofmann],<br />
 [http://www5.informatik.uni-erlangen.de/ Pattern Recognition Lab (Lehrstuhl fuer Muestererkennung, LME)], University of Erlangen-Nürnberg, Germany
 
 
