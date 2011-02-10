@@ -14,5 +14,8 @@ http://www5.informatik.uni-erlangen.de/research/software/java-parallel-optimizat
 RabbitCT
 http://www.rabbtict.com/
 
+likwid
+http://code.google.com/p/likwid/
+
 univis2typo3
 http://code.google.com/p/univis2typo3/
