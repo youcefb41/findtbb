@@ -1,7 +1,6 @@
-#summary ChangeLog
 #labels Featured
+<wiki:comment>#summary ChangeLog</wiki:comment>
 
-= Introduction =
 FindTBB does not have releases, but instead can be obtained directly from [http://code.google.com/p/findtbb/source/checkout SVN].
 Consequently, instead of version numbers, revision numbers are referenced here.
 
