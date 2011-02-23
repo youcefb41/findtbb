@@ -1,0 +1,16 @@
+#summary Short guide to building TBB on Linux from source.
+
+Building Threading Building Blocks from source is easy:
+  # Download the source from the 'Download' section of [http://threadingbuildingblocks.org/ the TBB website] (I chose the latest Commercial Aligned Release, which was 3.0 update 5).
+  # Un-tar the archive.
+  # Build it with your favorite compiler. If you omit the `compiler=icc` parameter to `make` the system's default compiler is used.
+
+{{{
+cd
+wget http://threadingbuildingblocks.org/uploads/78/165/3.0%20Update%205/tbb30_131oss_src.tgz
+tar -zxvf tbb30_131oss_src.tgz
+mv tbb30_131oss ~/src/
+
+cd ~/src/tbb30_131oss/
+make compiler=icc
+}}}
