@@ -5,6 +5,19 @@ FindTBB does not have releases, but instead can be obtained directly from [http:
 Consequently, instead of version numbers, revision numbers are referenced here.
 
 = Changes =
+*r36* (2011May24)<br />
+Several improvements, many small fixes.
+  * Now defines TBB_DEBUG_LIBRARY_DIRS, too
+  * Support for MSVC10
+  * Better support on MacOS
+  * More search paths
+  * Many small bug fixes
+  * License included in file
+See issue #1 or commit message :) (thanks to Jiri Marsik)
+
+*r35* (2011May24)<br />
+Added define of TBB_INTERFACE_VERSION (thx to facebook).
+
 *r24* (2011Feb10)<br />
 Added compatibility with commercially aligned distribution for Mac OS X (thanks to Gino van den Bergen)
 
